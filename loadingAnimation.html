@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Loading Animation Simulator</title>
+</head>
+<body style="font-family: monospace; text-align: center; padding-top: 100px; background-color: #f4f4f4;">
+
+    <!-- Displaying the Loading Animation -->
+  <div id="loader" style="font-size: 2rem; margin-bottom: 20px;">Loading...</div>
+  <!-- Displaying Status Message -->
+  <div id="status">Please wait</div>
+
+  <script>
+    // This function controls the loading animation
+    function runLoadingAnimation() {
+        // This variable (loader) is storing the HTML element so JavaScript (JS) can change the text on the screen
+      const loader = document.getElementById("loader");
+       // This variable (status) is storing the HTML element so JS can display the messages "Please Wait" or "Done" on the screen
+      const status = document.getElementById("status");
+
+      // This variable (frames) is storing the symbols used in the animation
+      const frames = ["⏳", "⌛", ".", "..", "..."];
+      //This variable (index) is keeping track of which frame we're currently on
+      let index = 0;
+      // This variable (cycleCount) is counting how many times the animation has looped
+      let cycleCount = 0;
+      // This variable (maxCycles) is setting the max number of loops before stopping
+      const maxCycles = 10;
+
+      // This variable (interval) is used to stop the animation when it finishes
+      // setInterval is creating a loop that run the code every 500 milliseconds (2x per second)
+      const interval = setInterval(() => {
+        // Changes the text/symbols shown in the loader box
+        loader.textContent = frames[index % frames.length];
+        // Moves to the next character
+        index++;
+        // Counts that animation round/cycle
+        if (index % frames.length === 0) {
+          cycleCount++;
+        }
+        // Stops the animation after the max number of cycles
+        if (cycleCount >= maxCycles) {
+            // Stops the repeating loop so it doesn't keep updating
+          clearInterval(interval);
+          // Shows the final icon and updates the message
+          loader.textContent = "✅";
+          status.textContent = "Done!";
+        }
+        // How often the animation updates
+      }, 500);
+    }
+// Starts the animation as soon as the page loads
+    runLoadingAnimation();
+  </script>
+
+</body>
+</html>
